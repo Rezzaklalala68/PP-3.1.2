@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+  <meta charset="UTF-8">
+  <title>List people</title>
+</head>
+<body>
+<h2 align="center">People</h2>
+<table border="1" align="center">
+  <thead>
+  <tr>
+    <th>Id</th>
+    <th>Username</th>
+    <th>Password</th>
+    <th>Age</th>
+    <th>Role</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="Person : ${allPeople}">
+    <td th:text="${people.id}"></td>
+    <td th:text="${person.firstName}"></td>
+    <td th:text="${person.lastName}"></td>
+    <td th:text="${person.userName}"></td>
+    <td th:text="${person.password}"></td>
+    <td th:text="${person.age}"></td>
+    <td>
+      <table>
+        <tr th:each="role : ${}">
+          <td th:text="${role.name}"></td>
+        </tr>
+      </table>
+    </td>
+    <td><a th:href="@{admin/delete/{id}(id=${person.id})}">Delete</a></td>
+    <td><a th:href="@{admin/update/{id}(id=${person.id})}">Edit</a></td>
+  </tr>
+  </tbody>
+</table>
+</div>
+<p align="center"><a href="/admin/add">Add Person</a></p>
+<p align="center"><a href="/logout">Logout</a></p>
+</div>
+</body>
+</html>
