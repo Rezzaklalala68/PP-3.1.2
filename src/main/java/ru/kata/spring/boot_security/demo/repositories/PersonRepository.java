@@ -11,6 +11,6 @@ import javax.validation.constraints.Size;
 @Repository
 public interface PersonRepository extends JpaRepository<Person, Long> {
     @EntityGraph(attributePaths = {"roles"})
-    Person findByUsername(@Size(min=2, message = "Не меньше 5 знаков") String username);
+    Person findByUsername(@Size(min=2, message = "Не меньше 2 знаков") String username);
 
 }

@@ -9,10 +9,7 @@
 <table border="1" align="center">
   <thead>
   <tr>
-    <th>Id</th>
-    <th>Firstname</th>
-    <th>Lastname</th>
-    <th>Age</th>
+
     <th>Username</th>
     <th>Password</th>
 
@@ -21,19 +18,15 @@
   <tbody>
   <tr>
 
-    <td th:text="${person.id}"></td>
-    <td th:text="${person.firstName}"></td>
-    <td th:text="${person.lastName}"></td>
-    <td th:text="${person.age}"></td>
     <td th:text="${person.username}"></td>
     <td th:text="${person.password}"></td>
+
 
 
 
   </tr>
   </tbody>
 </table>
-<h4><a th:href="@{/user}">In profile</a></h4>
 <h4><a th:href="@{/logout}">Log out</a></h4>
 </body>
 </html>

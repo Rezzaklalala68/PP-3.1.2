@@ -24,7 +24,7 @@ public class PeopleController {
                 .loadUserByUsername(userService.getCurrentUsername()));
         return "user";
     }
-    @GetMapping("/user/{username}")
+    @GetMapping("user/{username}")
     public String getUser(@PathVariable String username, Model model) {
         model.addAttribute("person", userService.loadUserByUsername(username));
         return "user";

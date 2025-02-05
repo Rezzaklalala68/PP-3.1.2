@@ -44,7 +44,7 @@ public class UserServiceImpl implements UserService {
         if (person == null) {
             throw new UsernameNotFoundException(String.format("User  not found with username: " + username));
         }
-
+        person.getRoles().size();
         return person;
     }
 
