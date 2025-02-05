@@ -1,29 +1,39 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
-<head>
   <meta charset="UTF-8">
-  <title>Show info</title>
-</head>
+  <title>User info</title>
+<head/>
 <body>
 <h2 align="center">Profile info:</h2>
 
 <table border="1" align="center">
   <thead>
   <tr>
+    <th>Id</th>
+    <th>Firstname</th>
+    <th>Lastname</th>
+    <th>Age</th>
     <th>Username</th>
     <th>Password</th>
+
   </tr>
   </thead>
   <tbody>
   <tr>
+
+    <td th:text="${person.id}"></td>
+    <td th:text="${person.firstName}"></td>
+    <td th:text="${person.lastName}"></td>
+    <td th:text="${person.age}"></td>
     <td th:text="${person.username}"></td>
     <td th:text="${person.password}"></td>
+
+
+
   </tr>
   </tbody>
 </table>
-<h4><a th:href="@/login}">Login</a></h4>
-<h4><a th:href="@{/admin}">To the admin panel</a></h4>
-<h4><a th:href="@{/show}">In profile</a></h4>
+<h4><a th:href="@{/user}">In profile</a></h4>
 <h4><a th:href="@{/logout}">Log out</a></h4>
 </body>
 </html>

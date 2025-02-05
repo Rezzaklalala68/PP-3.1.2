@@ -2,6 +2,7 @@ package ru.kata.spring.boot_security.demo.model;
 
 
 import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.UniqueElements;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -39,10 +40,11 @@ public class Person implements UserDetails, Serializable {
     @Min(value = 1, message = "Age should be greater than 0")
     private int age;
 
-    @Size(min=2, message = "Не меньше 5 знаков")
+    @Size(min=2, message = "Не меньше 2 знаков")
+    @UniqueElements(message = "Username must be original")
     private String username;
 
-    @Size(min=2, message = "Не меньше 5 знаков")
+    @Size(min=2, message = "Не меньше 2 знаков")
     private String password;
 
     @Transient
@@ -164,20 +166,25 @@ public class Person implements UserDetails, Serializable {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Person person = (Person) o;
-        return id == person.id && age == person.age && Objects.equals(firstName, person.firstName) && Objects.equals(lastName, person.lastName);
+        return age == person.age && Objects.equals(id, person.id) && Objects.equals(firstName, person.firstName) && Objects.equals(lastName, person.lastName) && Objects.equals(username, person.username) && Objects.equals(password, person.password) && Objects.equals(passwordConfirm, person.passwordConfirm) && Objects.equals(roles, person.roles);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstName, lastName, age);
+        return Objects.hash(id, firstName, lastName, age, username, password, passwordConfirm, roles);
     }
 
     @Override
     public String toString() {
-        return "User " +
-                "id = " + id +
-                ", firstName = '" + firstName + '\'' +
-                ", lastName = '" + lastName + '\'' +
-                ", age = " + age ;
+        return "Person{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", age=" + age +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", passwordConfirm='" + passwordConfirm + '\'' +
+                ", roles=" + roles +
+                '}';
     }
 }

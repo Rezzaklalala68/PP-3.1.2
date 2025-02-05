@@ -19,7 +19,7 @@ public class Role implements GrantedAuthority {
     @Size(min = 2, max = 35, message = "roleName should be between 2 and 35 characters")
     private String name;
     @Transient
-    @ManyToMany(mappedBy = "roles")
+    @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
     private Set<Person> people;
     public Role() {
     }
@@ -37,6 +37,14 @@ public class Role implements GrantedAuthority {
 
     public Long getId() {
         return id;
+    }
+
+    public Set<Person> getPeople() {
+        return people;
+    }
+
+    public void setPeople(Set<Person> people) {
+        this.people = people;
     }
 
     public void setId(Long id) {

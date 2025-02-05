@@ -33,13 +33,15 @@
   <br/>
 
   <p th:each="role : ${allRoles}">
-    <input
-            type="checkbox"
-            name="roleList"
-            th:id="'role' + ${role.getId()}"
-            th:value="${role.getId()}"
-            th:checked = "${user.getRoles().contains(role)}"
-    />
+    <label>
+      <input
+              type="checkbox"
+              name="roleList"
+              th:id="'role' + ${role.getId()}"
+              th:value="${role.getId()}"
+              th:checked = "${person.getRoles().contains(role)}"
+      />
+    </label>
     <label th:for="'role' + ${role.getId()}" th:text="${role.getAuthority()}">
     </label>
   </p>

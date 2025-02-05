@@ -1,6 +1,7 @@
 package ru.kata.spring.boot_security.demo.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -43,11 +44,8 @@ public class UserServiceImpl implements UserService {
         if (person == null) {
             throw new UsernameNotFoundException(String.format("User  not found with username: " + username));
         }
-        return new org.springframework.security.core.userdetails.User(
-                person.getUsername(),
-                person.getPassword(),
-                mapRolesToAuthorities(person.getRoles())
-        );
+
+        return person;
     }
 
     private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles) {
@@ -55,7 +53,7 @@ public class UserServiceImpl implements UserService {
                 .map(role -> new SimpleGrantedAuthority(role.getName()))
                 .collect(Collectors.toList());
     }
-
+    @EntityGraph(attributePaths = {"roles"})
     public Person findByUsername(String username) {
         return personRepository.findByUsername(username);
     }

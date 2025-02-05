@@ -11,7 +11,7 @@
     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
 
     <label for="username">Name</label><br>
-    <input type="text" th:field="*{username}" id="username" placeholder="Name"><br>
+    <input type="text" th:field="*{username}" id="username" placeholder="UserName"><br>
 
     <label for="password">Password</label><br>
     <input type="password" th:field="*{password}" id="password" placeholder="Password"><br>
@@ -25,7 +25,7 @@
     <label for="age">Age</label><br>
     <input type="number" th:field="*{age}" id="age" placeholder="Age"><br>
 
-    <p>Roles:</p>
+
     <p>Roles:</p>
     <p th:each="role : ${allRoles}">
         <label>

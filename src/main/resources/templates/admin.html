@@ -10,33 +10,38 @@
   <thead>
   <tr>
     <th>Id</th>
+    <th>Firstname</th>
+    <th>Lastname</th>
+    <th>Age</th>
     <th>Username</th>
     <th>Password</th>
-    <th>Age</th>
     <th>Role</th>
+    <th>Delete</th>
+    <th>Edit</th>
   </tr>
   </thead>
   <tbody>
   <tr th:each="Person : ${allPeople}">
-    <td th:text="${people.id}"></td>
-    <td th:text="${person.firstName}"></td>
-    <td th:text="${person.lastName}"></td>
-    <td th:text="${person.userName}"></td>
-    <td th:text="${person.password}"></td>
-    <td th:text="${person.age}"></td>
+    <td th:text="${Person.id}"></td>
+    <td th:text="${Person.firstName}"></td>
+    <td th:text="${Person.lastName}"></td>
+    <td th:text="${Person.age}"></td>
+    <td th:text="${Person.username}"></td>
+    <td th:text="${Person.password}"></td>
+
     <td>
       <table>
-        <tr th:each="role : ${}">
+        <tr th:each="role : ${Person.roles}">
           <td th:text="${role.name}"></td>
         </tr>
       </table>
     </td>
-    <td><a th:href="@{admin/delete/{id}(id=${person.id})}">Delete</a></td>
-    <td><a th:href="@{admin/update/{id}(id=${person.id})}">Edit</a></td>
+    <td><a th:href="@{admin/delete/{id}(id=${Person.id})}">Delete</a></td>
+    <td><a th:href="@{admin/update/{id}(id=${Person.id})}">Edit</a></td>
   </tr>
   </tbody>
 </table>
-</div>
+<div>
 <p align="center"><a href="/admin/add">Add Person</a></p>
 <p align="center"><a href="/logout">Logout</a></p>
 </div>
