@@ -12,18 +12,30 @@
 
     <label for="username">Name</label><br>
     <input type="text" th:field="*{username}" id="username" placeholder="UserName"><br>
+    <div th:if="${#fields.hasErrors('username')}" style="color:red;">
+        <p th:each="err : ${#fields.errors('username')}" th:text="${err}"> Error</p>
+    </div>
 
     <label for="password">Password</label><br>
     <input type="password" th:field="*{password}" id="password" placeholder="Password"><br>
 
     <label for="firstName">FirstName</label><br>
     <input type="text" th:field="*{firstName}" id="firstName" placeholder="firstName"><br>
+    <div th:if="${#fields.hasErrors('firstName')}" style="color:red;">
+        <p th:each="err : ${#fields.errors('firstName')}" th:text="${err}"> Error</p>
+    </div>
 
     <label for="lastName">LastName</label><br>
     <input type="text" th:field="*{lastName}" id="lastName" placeholder="lastName"><br>
+    <div th:if="${#fields.hasErrors('lastName')}" style="color:red;">
+        <p th:each="err : ${#fields.errors('lastName')}" th:text="${err}"> Error</p>
+    </div>
 
     <label for="age">Age</label><br>
     <input type="number" th:field="*{age}" id="age" placeholder="Age"><br>
+    <div th:if="${#fields.hasErrors('age')}" style="color:red;">
+        <p th:each="err : ${#fields.errors('age')}" th:text="${err}"> Error</p>
+    </div>
 
 
     <p>Roles:</p>

@@ -2,12 +2,12 @@ package ru.kata.spring.boot_security.demo.model;
 
 
 import org.hibernate.validator.constraints.NotEmpty;
-import org.hibernate.validator.constraints.UniqueElements;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
@@ -24,14 +24,14 @@ public class Person implements UserDetails, Serializable {
     private Long id;
 
     @Column
-    @NotEmpty(message = "firstName should not be empty")
+    @NotBlank(message = "firstName should not be empty")
     @Pattern(regexp = "^[a-zA-Zа-яА-Я]+$", message = "firstName should contain only letters")
     @Size(min = 2, max = 35, message = "firstName should be between 2 and 35 characters")
     private String firstName;
 
 
     @Column
-    @NotEmpty(message = "lastName should not be empty")
+    @NotBlank(message = "lastName should not be empty")
     @Pattern(regexp = "^[a-zA-Zа-яА-Я]+$", message = "lastName should contain only letters")
     @Size(min = 2, max = 35, message = "lastName should be between 2 and 35 characters")
     private String lastName;
@@ -40,8 +40,8 @@ public class Person implements UserDetails, Serializable {
     @Min(value = 1, message = "Age should be greater than 0")
     private int age;
 
-    @Size(min=2, message = "Не меньше 2 знаков")
-    @UniqueElements(message = "Username must be original")
+    @Size(min=2, message = "Не меньше 2 знаков / введите уникальный логин")
+    @Column(unique = true)
     private String username;
 
     @Size(min=2, message = "Не меньше 2 знаков")
