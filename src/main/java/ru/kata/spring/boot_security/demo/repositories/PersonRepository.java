@@ -6,11 +6,12 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import ru.kata.spring.boot_security.demo.model.Person;
 
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Size;
 
 @Repository
 public interface PersonRepository extends JpaRepository<Person, Long> {
     @EntityGraph(attributePaths = {"roles"})
-    Person findByUsername(@Size(min=2, message = "Не меньше 2 знаков") String username);
+    Person findByUsername(@Size(min=2, message = "More 2 elements / Not unique username")  String username);
 
 }

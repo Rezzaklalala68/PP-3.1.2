@@ -41,7 +41,7 @@ public class Person implements UserDetails, Serializable {
     private int age;
 
     @Size(min=2, message = "Не меньше 2 знаков / введите уникальный логин")
-    @Column(unique = true)
+    @Column(unique = true )
     private String username;
 
     @Size(min=2, message = "Не меньше 2 знаков")

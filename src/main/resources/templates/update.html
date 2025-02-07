@@ -12,27 +12,27 @@
   <br/>
   <br/>
   <label for="username">Username</label>
-  <input type="text" th:field="*{username}" id="username" placeholder="Username">
+  <input type="text" th:field="*{username}" id="username" required>
   <div th:if="${#fields.hasErrors('username')}" style="color:red;" th:errors="*{username}"> username Error
   </div>
   <label for="password">Password</label>
-  <input type="password" th:field="*{password}" id="password" placeholder="Password"> <br/>
+  <input type="password" th:field="*{password}" id="password" required> <br/>
   <div th:if="${#fields.hasErrors('password')}" style="color:red;" th:errors="*{password}"> pass Error
   </div>
   <br/>
   <label for="firstName">FirstName</label>
-  <input type="text" th:field="*{firstName}" id="firstName" placeholder="firstName">
+  <input type="text" th:field="*{firstName}" id="firstName" required>
   <div th:if="${#fields.hasErrors('firstName')}" style="color:red;" th:errors="*{firstName}"> firstname Error
   </div>
   <br/>
   <label for="lastName">LastName</label>
-  <input type="text" th:field="*{lastName}" id="lastName" placeholder="lastName">
+  <input type="text" th:field="*{lastName}" id="lastName" required>
   <div th:if="${#fields.hasErrors('lastName')}" style="color:red;" th:errors="*{lastName}"> lastname Error
   </div>
     <br/>
   <label for="age">Enter age:</label>
-  <input type="text" th:field="*{age}" id="age"/>
-  <div th:if="${#fields.hasErrors('age')}" style="color:red;" th:errors="*{age}"> username Error
+  <input type="text" th:field="*{age}" id="age" required/>
+  <div th:if="${#fields.hasErrors('age')}" style="color:red;" th:errors="*{age}"> age Error
   </div>
     <br/>
 

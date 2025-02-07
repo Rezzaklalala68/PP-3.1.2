@@ -49,7 +49,7 @@ public class AdminsController {
     }
 
     @PostMapping("update")
-    public String updateUser ( @ModelAttribute("person") @Valid Person person, BindingResult bindingResult,
+    public String updateUser ( @Valid @ModelAttribute("person")  Person person, BindingResult bindingResult,
                               @RequestParam("roleList") List<String> role) {
         if(bindingResult.hasErrors()) {
             return "update";
@@ -68,7 +68,7 @@ public class AdminsController {
     }
 
     @PostMapping("add")
-    public String addUser (@ModelAttribute("person") @Valid Person person, BindingResult bindingResult,
+    public String addUser (@Valid @ModelAttribute("person")  Person person, BindingResult bindingResult,
                            @RequestParam(value = "role", required = false) List<String> role) {
         if(bindingResult.hasErrors()) {
             return "add";
