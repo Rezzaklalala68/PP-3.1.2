@@ -17,7 +17,10 @@ import java.util.Objects;
 
 
 @Entity
-@Table(name = "people")
+@Table(name = "people", uniqueConstraints = {
+        @UniqueConstraint(columnNames = "username"),
+        @UniqueConstraint(columnNames = "id")
+})
 public class Person implements UserDetails, Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY  )
@@ -41,7 +44,8 @@ public class Person implements UserDetails, Serializable {
     private int age;
 
     @Size(min=2, message = "Не меньше 2 знаков / введите уникальный логин")
-    @Column(unique = true )
+    @Column(name = "username")
+
     private String username;
 
     @Size(min=2, message = "Не меньше 2 знаков")

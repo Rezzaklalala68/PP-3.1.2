@@ -78,17 +78,20 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void add (Person person) {
-
+        if (personRepository.findByUsername(person.getUsername()) != null) {
+            throw new IllegalArgumentException("Username already exists");
+        }
         person.setPassword(passwordEncoder.encode(person.getPassword()));
         personRepository.save(person);
     }
 
     @Override
     public void update (Person person) {
-        if (!person.getPassword().isEmpty()) {
+        Person existingPerson  = personRepository.findById(person.getId()).orElse(null);
+        if (!person.getPassword().isEmpty() || person.getPassword() != null) {
             person.setPassword(passwordEncoder.encode(person.getPassword()));
         } else {
-            Person existingPerson  = personRepository.findById(person.getId()).orElse(null);
+
             if (existingPerson  != null) {
                 person.setPassword(existingPerson.getPassword());
             }

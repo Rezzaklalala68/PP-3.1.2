@@ -3,6 +3,7 @@ package ru.kata.spring.boot_security.demo.controller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -21,11 +22,12 @@ import java.util.List;
 public class AdminsController {
     private final UserService userService; // Внедряем интерфейс
     private final RoleService roleService; // Внедряем интерфейс
-
+    private final PasswordEncoder passwordEncoder;
     @Autowired
-    public AdminsController(UserService userService, RoleService roleService) {
+    public AdminsController(UserService userService, RoleService roleService, PasswordEncoder passwordEncoder) {
         this.userService = userService;
-        this.roleService = roleService; // Внедрение зависимости через интерфейс
+        this.roleService = roleService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @GetMapping
@@ -49,14 +51,29 @@ public class AdminsController {
     }
 
     @PostMapping("update")
-    public String updateUser ( @Valid @ModelAttribute("person")  Person person, BindingResult bindingResult,
-                              @RequestParam("roleList") List<String> role) {
-        if(bindingResult.hasErrors()) {
+    public String updateUser ( @Validated @ModelAttribute("person")  Person person, BindingResult bindingResult,Model model,
+                              @RequestParam("roleList") List<String> role ) {
+        // Проверка ошибок валидации
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("allRoles", roleService.getRoleList());
             return "update";
         }
 
+        // Проверка уникальности username
+        Person existingPerson = (Person) userService.loadUserByUsername(person.getUsername());
+        if (existingPerson != null && !existingPerson.getId().equals(person.getId())) {
+            model.addAttribute("usernameError", "Username already exists");
+            model.addAttribute("allRoles", roleService.getRoleList());
+            return "update";
+        }
+
+
+
+
+        // Установка ролей и обновление пользователя
         person.setRoles(userService.getSetOfRoles(role));
-        userService.update (person);
+        userService.update(person);
+
         return "redirect:/admin";
     }
 
@@ -68,17 +85,23 @@ public class AdminsController {
     }
 
     @PostMapping("add")
-    public String addUser (@Valid @ModelAttribute("person")  Person person, BindingResult bindingResult,
-                           @RequestParam(value = "role", required = false) List<String> role) {
+    public String addUser (@Validated @ModelAttribute("person")  Person person, BindingResult bindingResult,
+                           @RequestParam(value = "role", required = false) List<String> role, Model model) {
         if(bindingResult.hasErrors()) {
+            model.addAttribute("allRoles", roleService.getRoleList());
             return "add";
         }
-        if (role != null && !role.isEmpty()) {
-            Collection<Role> roleList = userService.getSetOfRoles(role);
-            person.setRoles(roleList);
+        try {
+            if (role != null && !role.isEmpty()) {
+                Collection<Role> roleList = userService.getSetOfRoles(role);
+                person.setRoles(roleList);
+            }
+            userService.add(person);
+        } catch (IllegalArgumentException e) {
+            model.addAttribute("usernameError", e.getMessage());
+            model.addAttribute("allRoles", roleService.getRoleList());
+            return "add";
         }
-
-        userService.add (person);
         return "redirect:/admin";
     }
 }
