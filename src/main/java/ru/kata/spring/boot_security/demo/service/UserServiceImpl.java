@@ -87,11 +87,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void update (Person person) {
-        Person existingPerson  = personRepository.findById(person.getId()).orElse(null);
-        if (!person.getPassword().isEmpty() || person.getPassword() != null) {
+        if (!person.getPassword().isEmpty()) {
             person.setPassword(passwordEncoder.encode(person.getPassword()));
         } else {
-
+            Person existingPerson  = personRepository.findById(person.getId()).orElse(null);
             if (existingPerson  != null) {
                 person.setPassword(existingPerson.getPassword());
             }
